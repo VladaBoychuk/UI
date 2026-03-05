@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Архіватор</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">ZIP</div>
+        <div class="brand-text">
+          <h1>Архіватор</h1>
+          <p class="sub">Створи ZIP-архів з обраних файлів</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container single">
+    <section class="card card-full">
+      <!-- Верхня панель керування -->
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <div class="titleblock">
+            <div class="title">Файли</div>
+            <div class="pill"><span id="count">0</span> шт.</div>
+          </div>
+
+          <div class="row wrap">
+            <button id="btnPick" class="btn primary">Обрати файли</button>
+            <button id="btnRemoveSelected" class="btn" disabled>Видалити вибрані</button>
+            <button id="btnClear" class="btn ghost">Очистити список</button>
+          </div>
+        </div>
+
+        <div class="toolbar-right">
+          <div class="saveblock">
+            <div class="saveblock-title">Збереження</div>
+
+            <div class="row wrap">
+              <button id="btnChoosePath" class="btn">Вказати шлях…</button>
+              <button id="btnClearPath" class="btn ghost" disabled>Скинути</button>
+              <button id="btnCreate" class="btn success" disabled>Створити архів</button>
+            </div>
+
+            <div class="pathline">
+              <span class="muted">Обраний шлях:</span>
+              <span id="savePathView" class="pathvalue">Не вибрано</span>
+            </div>
+
+            <div class="statusline">
+              <div id="status" class="status muted"></div>
+            </div>
+
+            <div id="error" class="error" hidden></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Список файлів -->
+      <div class="list list-full">
+        <div class="list-head">
+          <div class="muted">Обрані файли</div>
+          <div id="selectedCount" class="muted">Вибрано: 0</div>
+        </div>
+
+        <ul id="files" class="files"></ul>
+
+        <!-- Порожній стан по центру -->
+        <div id="empty" class="empty-center muted">
+          <div class="empty-big">Файли не додані</div>
+          <div class="empty-small">Натисни “Обрати файли”, щоб почати 🙂</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Custom Confirm Modal -->
+  <div id="confirmModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-overlay" id="confirmOverlay"></div>
+
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <div class="modal-header">
+        <h3 id="confirmTitle"></h3>
+      </div>
+      <div class="modal-body" id="confirmMessage"></div>
+      <div class="modal-actions">
+        <button id="confirmNo" class="btn ghost">Скасувати</button>
+        <button id="confirmYes" class="btn primary">Так</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Modal (ВАЖЛИВО: всередині body і до renderer.js) -->
+  <div id="successModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-overlay" id="successOverlay"></div>
+
+    <div class="modal-box success-box" role="dialog" aria-modal="true">
+    <div class="modal-header">
+        <div class="success-head">
+        <span class="success-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+            <path d="M20 6L9 17l-5-5"
+                    stroke="currentColor"
+                    stroke-width="2.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+            </svg>
+        </span>
+        <h3>Архів створено</h3>
+        </div>
+    </div>
+
+      <div class="modal-body">
+        <div><strong>Назва:</strong> <span id="successName"></span></div>
+        <div><strong>Розташування:</strong> <span id="successPath"></span></div>
+        <div><strong>Розмір:</strong> <span id="successSize"></span></div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="successClose" class="btn success">Закрити</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./renderer.js"></script>
+</body>
+</html>
